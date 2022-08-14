@@ -85,7 +85,7 @@ namespace _21點重製
         {
             PlayerService _PlayerService = new PlayerService();
             _PlayerService.TakeCard(you, CardDeck);
-            //_PlayerService.CreatePokerPicture(you);
+            _PlayerService.CreatePokerPicture(you);
             //you.TakeCard(CardDeck);
             lblPlayer.Text = you.PlayerPoint.ToString();
             if (you.PlayerCardNo.Count == 5)
@@ -113,7 +113,7 @@ namespace _21點重製
             }
             else if (banker.PlayerPoint == you.PlayerPoint)
             {
-                MessageBox.Show("平手");
+                MessageBox.Show("和局");
                 Clear();
             }                  
         }
@@ -164,10 +164,10 @@ namespace _21點重製
             else if (banker.PlayerPoint == you.PlayerPoint)
             {
                 timer1.Enabled = false;
-                MessageBox.Show("平手");
+                MessageBox.Show("和局");
                 Clear();
             }
-            else if (banker.PlayerCardNo.Count == 5)
+            else if (banker.PlayerCardNo.Count >= 5)
             {
                 timer1.Enabled = false;
                 playerchip.compare(banker.PlayerPoint, you.PlayerPoint);
@@ -176,7 +176,7 @@ namespace _21點重製
             {
                 //banker.MakerTakeCard(CardDeck);
                 _PlayerService.TakeCard(banker,CardDeck);
-                //_PlayerService.CreatePokerPicture(banker);
+                _PlayerService.CreatePokerPicture(banker);
                 lblMain.Text = banker.PlayerPoint + "";
             }
 

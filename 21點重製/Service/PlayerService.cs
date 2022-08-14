@@ -39,11 +39,12 @@ namespace _21點重製.Service
             ThePlayer.PlayerCardNo.Add(PokerList[0]);
             PokerList.RemoveAt(0);
             ThePlayer.PlayerTake = new TakeCard(ThePlayer.panplayer);
-            CreatePokerPicture(ThePlayer);
+            //CreatePokerPicture(ThePlayer);
             //CreatePokerPicture(ThePlayer.PlayerCardNo[ThePlayer.PlayerCardNo.Count - 1], ThePlayer.TakeCount, ThePlayer.PlayerPoker);
-            
-            ThePlayer.TakeCount++;
-            ThePlayer.PlayerPoint += ThePlayer.PlayerPoker[ThePlayer.TakeCount].TrueValue;
+            CardValue GetCardValue = new CardValue(ThePlayer.PlayerCardNo.Last().Value);
+            ThePlayer.PlayerPoker.Add(GetCardValue);
+            //ThePlayer.PlayerPoint += ThePlayer.PlayerPoker[ThePlayer.PlayerPoker.Count - 1].TrueValue;
+            ThePlayer.PlayerPoint += ThePlayer.PlayerPoker.Last().TrueValue;
             ThePlayer.PlayerPoint = CheckAce(ThePlayer.PlayerPoint, ThePlayer.PlayerPoker);
         }
 
@@ -78,8 +79,7 @@ namespace _21點重製.Service
             ThePlayer.panplayer.Controls.Add(PokerPictureBox);
             //CardValue GetCardValue = new CardValue(PlayerCard.Value);
             //ThePlayer.PlayerPoker.Add(GetCardValue);
-            CardValue GetCardValue = new CardValue(ThePlayer.PlayerCardNo[ThePlayer.PlayerCardNo.Count - 1].Value);
-            ThePlayer.PlayerPoker.Add(GetCardValue);
+            ThePlayer.TakeCount++;
         }
     }
 }

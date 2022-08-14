@@ -52,7 +52,7 @@ namespace _21點重製
         }
         public void compare(int x, int y)
         {
-            if (x > 21)
+            if (x > 21 || x < y)
             {
                 MessageBox.Show("玩家獲勝");
                 winmoney();
