@@ -38,16 +38,20 @@ namespace _21點重製.Service
         {
             ThePlayer.PlayerCardNo.Add(PokerList[0]);
             PokerList.RemoveAt(0);
-            ThePlayer.PlayerTake = new TakeCard(ThePlayer.panplayer);
-            //CreatePokerPicture(ThePlayer);
+            //ThePlayer.PlayerTake = new TakeCard(ThePlayer.panplayer);
             //CreatePokerPicture(ThePlayer.PlayerCardNo[ThePlayer.PlayerCardNo.Count - 1], ThePlayer.TakeCount, ThePlayer.PlayerPoker);
             CardValue GetCardValue = new CardValue(ThePlayer.PlayerCardNo.Last().Value);
             ThePlayer.PlayerPoker.Add(GetCardValue);
-            //ThePlayer.PlayerPoint += ThePlayer.PlayerPoker[ThePlayer.PlayerPoker.Count - 1].TrueValue;
             ThePlayer.PlayerPoint += ThePlayer.PlayerPoker.Last().TrueValue;
             ThePlayer.PlayerPoint = CheckAce(ThePlayer.PlayerPoint, ThePlayer.PlayerPoker);
         }
 
+        /// <summary>
+        /// 依照牌中的點數，調整Ace點數的大小
+        /// </summary>
+        /// <param name="PlayerPoint"></param>
+        /// <param name="PlayerPoker"></param>
+        /// <returns></returns>
         public int CheckAce(int PlayerPoint, List<CardValue> PlayerPoker)
         {
             if (PlayerPoint > 21)
@@ -60,14 +64,16 @@ namespace _21點重製.Service
                         PlayerPoint -= 10;
                         break;
                     }
-
                 }
             }
             return PlayerPoint;
         }
 
-
-        public void CreatePokerPicture(IPlayer ThePlayer)   //建立圖片
+        /// <summary>
+        /// 建立撲克牌圖片
+        /// </summary>
+        /// <param name="ThePlayer"></param>
+        public void CreatePokerPicture(IPlayer ThePlayer)   
         {
             PictureBox PokerPictureBox = new PictureBox();
             PokerPictureBox.Size = new Size(104, 146);

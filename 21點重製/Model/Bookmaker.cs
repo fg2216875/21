@@ -27,11 +27,10 @@ namespace _21點重製
         /// </summary>
         public List<CardValue> PlayerPoker { get; set; }
         public CardValue PlayCardPoint { get; set; }
-        public TakeCard PlayerTake { get; set; }
         public Control panplayer { get; set; }
-        public int PlayerChip { get; set; }   //玩家初始的金額
-        public int TakeCount { get; set; }     //玩家加牌的次數
-        public int PlayerPoint { get; set; }  //玩家點數總和
+        public int PlayerChip { get; set; }   
+        public int TakeCount { get; set; }    
+        public int PlayerPoint { get; set; }  
         public Banker(Control a)
         {
             PlayerPoker = new List<CardValue>();

@@ -1,5 +1,4 @@
 ﻿using _21點重製.Interface;
-using _21點重製.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +19,31 @@ namespace _21點重製
         //private int _TakeCount = 0;      //玩家加牌的次數
         //private int _PlayerPoint = 0;    //玩家點數總和
 
+        /// <summary>
+        /// 目前手中握有的撲克牌
+        /// </summary>
         public List<CardNo> PlayerCardNo { get; set; }
+        /// <summary>
+        /// 當前撲克牌的實際點數大小
+        /// </summary>
         public List<CardValue> PlayerPoker { get; set; }
         public CardValue PlayCardPoint { get; set; }
-        public TakeCard PlayerTake { get; set; }
+        /// <summary>
+        /// 玩家圖片控制項
+        /// </summary>
         public Control panplayer { get; set; }
-        public int PlayerChip { get; set; }   //玩家初始的金額
-        public int TakeCount { get; set; }     //玩家加牌的次數
-        public int PlayerPoint { get; set; }  //玩家點數總和
+        /// <summary>
+        /// 玩家初始的金額
+        /// </summary>
+        public int PlayerChip { get; set; }
+        /// <summary>
+        /// 玩家加牌的次數
+        /// </summary>
+        public int TakeCount { get; set; }
+        /// <summary>
+        /// 玩家點數總和
+        /// </summary>
+        public int PlayerPoint { get; set; }  
         public Player(Control a)
         {
             PlayerCardNo = new List<CardNo>();

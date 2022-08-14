@@ -19,67 +19,24 @@ namespace _21點重製
         {
             InitializeComponent();
         }
-        int ranorder;
-        int PlayerCount = 2;
         
         List<CardNo> CardDeck = new List<CardNo>();    //建立一組撲克牌
         Player you;                  //宣告一名玩家
         Banker banker;             //宣告一名莊家
         gamechip playerchip;         //宣告雙方的籌碼
-        CardNo cn, order;
         private void Form1_Load(object sender, EventArgs e)
         {
             GameService _GameService = new GameService();
             //執行時先建立一副撲克牌
             CardDeck = _GameService.ReStart();
             CardDeck = _GameService.Shuffle(CardDeck);
-            //for(int i = 0; i < 4; i++)             
-            //{
-            //    for(int s = 0; s < 13; s++)
-            //    {
-            //        cn = new CardNo();
-            //        cn.Symbol = (i+1) + "";
-            //        cn.Value = s + 1;
-            //        Cardnumber.Add(cn);                              
-            //    }                
-            //}
+
             you = new Player(panPlayer);          //建立玩家
             banker = new Banker(panMain);       //建立莊家
             playerchip = new gamechip(banker.PlayerChip, you.PlayerChip);   //建立雙方的籌碼  
             playerchip.showchip += lblMoney;
             playerchip.addclear += Clear;
         }
-        //Random rand = new Random();
-        //private void Shuffle()             //將撲克牌做洗牌
-        //{
-        //    for (int i = 0; i < Cardnumber.Count; i++)
-        //    {
-        //        ranorder = rand.Next(0, 52);
-        //        order = Cardnumber[i];
-        //        Cardnumber[i] = Cardnumber[ranorder];
-        //        Cardnumber[ranorder] = order;               
-        //    }
-        //}
-
-        //private void ReStart()             //檢查撲克牌數量若小於(PlayerCount * 2)，則將重新建立和洗牌
-        //{
-        //    if (Cardnumber.Count <= PlayerCount * 2)     
-        //    {
-        //        Cardnumber.Clear();
-        //        for (int i = 0; i < 4; i++)
-        //        {
-        //            for (int s = 0; s < 13; s++)
-        //            {
-        //                cn = new CardNo();
-        //                cn.Symbol = (i + 1) + "";
-        //                cn.Value = s + 1;
-        //                Cardnumber.Add(cn);
-        //            }
-        //        }
-        //        Shuffle();
-        //        GC.Collect();
-        //    }
-        //}
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -191,6 +148,7 @@ namespace _21點重製
         {
             GameService _GameService = new GameService();
             PlayerService _PlayerService = new PlayerService();
+            int PlayerCount = 2;
             numericUpDown1.Enabled = false;
             playerchip.getchip((int)numericUpDown1.Value);       //將玩家輸入的金額傳到gamechip裡
             if(CardDeck.Count <= PlayerCount * 5)

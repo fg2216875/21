@@ -28,24 +28,26 @@ namespace _21點重製
             {
                 TrueValue = 11;
             }
-            else TrueValue = a;
-        }
-        public void checkAce(ref int point, List<CardValue> card)
-        {
-            if (point > 21)
-            {
-                for (int i = 0; i < card.Count; i++)
-                {
-                    if (card[i].TrueValue == 11)
-                    {
-                        card[i].TrueValue = 1;
-                        point -= 10;
-                        break;
-                    }
-
-                }
+            else {
+                TrueValue = a;
             }
         }
+        //public void checkAce(ref int point, List<CardValue> card)
+        //{
+        //    if (point > 21)
+        //    {
+        //        for (int i = 0; i < card.Count; i++)
+        //        {
+        //            if (card[i].TrueValue == 11)
+        //            {
+        //                card[i].TrueValue = 1;
+        //                point -= 10;
+        //                break;
+        //            }
+
+        //        }
+        //    }
+        //}
     }
     public class CardNo
     {

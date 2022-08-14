@@ -12,7 +12,6 @@ namespace _21點重製.Interface
         List<CardNo> PlayerCardNo { get; set; }
         List<CardValue> PlayerPoker { get; set; }
         CardValue PlayCardPoint { get; set; }
-        TakeCard PlayerTake { get; set; }
         Control panplayer { get; set; }
         int PlayerChip { get; set; }  //玩家初始的金額
         int TakeCount { get; set; }      //玩家加牌的次數
