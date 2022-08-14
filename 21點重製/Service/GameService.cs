@@ -80,13 +80,13 @@ namespace _21點重製.Service
         //    if (BankerPoint > 21)
         //    {
         //        ShowMessage = "玩家獲勝";
-        //        winmoney();
+        //        WinMoney();
         //        addclear();
         //    }
         //    else if (BankerPoint > PlayerPoint)
         //    {
         //        ShowMessage = "莊家獲勝!";
-        //        losemoney();
+        //        LoseMoney();
         //        addclear();
         //    }
         //    else if (BankerPoint == PlayerPoint)
@@ -98,34 +98,23 @@ namespace _21點重製.Service
         //    return ShowMessage;
         //}
 
-        //public void getchip(int a)
-        //{
-        //    chip = a;
-        //}
-        //public void losemoney()
-        //{
-        //    makerchip += chip;
-        //    playerchip -= chip;
-        //    showchip(playerchip, makerchip);
-        //}
-        //public void winmoney()
-        //{
-        //    makerchip -= chip;
-        //    playerchip += chip;
-        //    showchip(playerchip, makerchip);
-        //}
-        //public void draw()
-        //{
-        //    showchip(playerchip, makerchip);
-        //}
-        //public void check(int a)
-        //{
-        //    if (a > 21)
-        //    {
-        //        MessageBox.Show("超過21點了!");
-        //        losemoney();
-        //        addclear();
-        //    }
-        //}
+        public void LoseMoney(Banker BankerInfo, Player PlayerInfo, decimal PlayerBetChip)
+        {
+            BankerInfo.PlayerChip += (int)PlayerBetChip;
+            PlayerInfo.PlayerChip -= (int)PlayerBetChip;
+            //BankerInitailChip += (int)PlayerBetChip;
+            //PlayerInitailChip -= (int)PlayerBetChip;
+            //int[] MoneyArray = new int[] { BankerInitailChip, PlayerInitailChip };
+            //return MoneyArray;
+        }
+        public void WinMoney(Banker BankerInfo, Player PlayerInfo, decimal PlayerBetChip)
+        {
+            BankerInfo.PlayerChip -= (int)PlayerBetChip;
+            PlayerInfo.PlayerChip += (int)PlayerBetChip;
+            //BankerInitailChip -= (int)PlayerBetChip;
+            //PlayerInitailChip += (int)PlayerBetChip;
+            //int[] MoneyArray = new int[] { BankerInitailChip, PlayerInitailChip };
+            //return MoneyArray;
+        }
     }
 }

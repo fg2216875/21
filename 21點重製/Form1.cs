@@ -33,23 +33,31 @@ namespace _21點重製
 
             you = new Player(panPlayer);          //建立玩家
             banker = new Banker(panMain);       //建立莊家
-            playerchip = new gamechip(banker.PlayerChip, you.PlayerChip);   //建立雙方的籌碼  
-            playerchip.showchip += lblMoney;
-            playerchip.addclear += Clear;
+            //playerchip = new gamechip(banker.PlayerChip, you.PlayerChip);   //建立雙方的籌碼  
+            //playerchip.showchip += lblMoney;
+            //playerchip.addclear += Clear;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             PlayerService _PlayerService = new PlayerService();
+            GameService _GameService = new GameService();
             _PlayerService.TakeCard(you, CardDeck);
             _PlayerService.CreatePokerPicture(you);
-            //you.TakeCard(CardDeck);
+
             lblPlayer.Text = you.PlayerPoint.ToString();
             if (you.PlayerCardNo.Count == 5)
             {
                 btnAdd.Enabled = false;    //先限定最多拿5張
             }
-            playerchip.check(you.PlayerPoint);
+            if(you.PlayerPoint > 21)
+            {
+                MessageBox.Show("超過21點了!");
+                _GameService.LoseMoney(banker, you, numericUpDown1.Value);
+                lblMoney(banker.PlayerChip, you.PlayerChip);
+                Clear();
+            }
+            //playerchip.check(you.PlayerPoint);
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -57,28 +65,16 @@ namespace _21點重製
             GameService _GameService = new GameService();
             picMain2.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\" + banker.PlayerCardNo[1].Symbol + banker.PlayerCardNo[1].Value + ".png");
             lblMain.Text = banker.PlayerPoint + "";
-            //Cardnumber = _GameService.ReStart();
-            if (banker.PlayerPoint < you.PlayerPoint)     //莊家依下列狀況做行動
-            {
-                timer1.Enabled = true;
-            }
-            else if (banker.PlayerPoint > you.PlayerPoint)
-            {
-                MessageBox.Show("莊家獲勝");
-                playerchip.losemoney();
-                Clear();
-            }
-            else if (banker.PlayerPoint == you.PlayerPoint)
-            {
-                MessageBox.Show("和局");
-                Clear();
-            }                  
+            btnAdd.Enabled = false;
+            btnStop.Enabled = false;
+            timer1.Enabled = true;
+              
         }
 
-        public void lblMoney(int a,int b)     //將結束後的籌碼顯示出來
+        public void lblMoney(int BankerChip,int PlayerChip)     //將結束後的籌碼顯示出來
         {
-            lblplayerchip.Text = a.ToString();
-            lblmainchip.Text = b.ToString();
+            lblplayerchip.Text = PlayerChip.ToString();
+            lblmainchip.Text = BankerChip.ToString();
         }
 
         private void btnreset_Click(object sender, EventArgs e)
@@ -113,10 +109,23 @@ namespace _21點重製
         private void timer1_Tick(object sender, EventArgs e)
         {
             PlayerService _PlayerService = new PlayerService();
-            if (banker.PlayerPoint > you.PlayerPoint)          //莊家加牌後要選擇的方法
+            GameService _GameService = new GameService();
+            if (banker.PlayerPoint > 21)
             {
                 timer1.Enabled = false;
-                playerchip.compare(banker.PlayerPoint, you.PlayerPoint);
+                MessageBox.Show("玩家獲勝!");
+                _GameService.WinMoney(banker, you, numericUpDown1.Value);
+                lblMoney(banker.PlayerChip, you.PlayerChip);
+                Clear();
+            }
+            else if (banker.PlayerPoint > you.PlayerPoint)          //莊家加牌後要選擇的方法
+            {
+                timer1.Enabled = false;
+                //playerchip.compare(banker.PlayerPoint, you.PlayerPoint);     
+                _GameService.LoseMoney(banker, you, numericUpDown1.Value);
+                lblMoney(banker.PlayerChip, you.PlayerChip);
+                MessageBox.Show("莊家獲勝!");
+                Clear();
             }
             else if (banker.PlayerPoint == you.PlayerPoint)
             {
@@ -127,14 +136,33 @@ namespace _21點重製
             else if (banker.PlayerCardNo.Count >= 5)
             {
                 timer1.Enabled = false;
-                playerchip.compare(banker.PlayerPoint, you.PlayerPoint);
+                string ShowMessage = "";
+                //playerchip.compare(banker.PlayerPoint, you.PlayerPoint);
+                if (banker.PlayerPoint > 21 || banker.PlayerPoint < you.PlayerPoint)
+                {
+                    ShowMessage = "玩家獲勝";
+                    _GameService.WinMoney(banker, you, numericUpDown1.Value);
+                    lblMoney(banker.PlayerChip, you.PlayerChip);
+                }
+                else if (banker.PlayerPoint > you.PlayerPoint)
+                {
+                    ShowMessage = "莊家獲勝!";
+                    _GameService.LoseMoney(banker, you, numericUpDown1.Value);
+                    lblMoney(banker.PlayerChip, you.PlayerChip);
+                }
+                else if (banker.PlayerPoint == you.PlayerPoint)
+                {
+                    ShowMessage = "和局";
+                }
+                MessageBox.Show(ShowMessage);
+                Clear();
             }
             else
             {
                 //banker.MakerTakeCard(CardDeck);
                 _PlayerService.TakeCard(banker,CardDeck);
                 _PlayerService.CreatePokerPicture(banker);
-                lblMain.Text = banker.PlayerPoint + "";
+                lblMain.Text = banker.PlayerPoint.ToString();
             }
 
         }
@@ -150,7 +178,7 @@ namespace _21點重製
             PlayerService _PlayerService = new PlayerService();
             int PlayerCount = 2;
             numericUpDown1.Enabled = false;
-            playerchip.getchip((int)numericUpDown1.Value);       //將玩家輸入的金額傳到gamechip裡
+            //playerchip.getchip((int)numericUpDown1.Value);       //將玩家輸入的金額傳到gamechip裡
             if(CardDeck.Count <= PlayerCount * 5)
             {
                 CardDeck = _GameService.ReStart();
@@ -159,9 +187,7 @@ namespace _21點重製
             //發牌給玩家
             _PlayerService.AddCard(you, CardDeck);
             //發牌給莊家
-            _PlayerService.AddCard(banker, CardDeck);
-            //you.AddCard(CardDeck);             
-            //banker.MakerAddCard(CardDeck);       
+            _PlayerService.AddCard(banker, CardDeck);     
             picPlayer1.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\"+you.PlayerCardNo[0].Symbol+ you.PlayerCardNo[0].Value + ".png");
             picPlayer2.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\" + you.PlayerCardNo[1].Symbol + you.PlayerCardNo[1].Value + ".png");
             picMain1.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\" + banker.PlayerCardNo[0].Symbol+ banker.PlayerCardNo[0].Value + ".png");
@@ -169,8 +195,7 @@ namespace _21點重製
             lblPlayer.Text = you.PlayerPoint + "";            
             btnAdd.Enabled = true;
             btnStop.Enabled = true;
-            btnStart.Enabled = false;
-            
+            btnStart.Enabled = false;       
         }
     }
 }

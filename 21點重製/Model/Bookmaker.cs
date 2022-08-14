@@ -8,16 +8,8 @@ using System.Windows.Forms;
 
 namespace _21點重製
 {
-    class Banker:IPlayer
+    public class Banker:IPlayer
     {
-        //public List<CardValue> MakerPoker = new List<CardValue>();
-        //public List<CardNo> Makercard = new List<CardNo>();
-        //CardValue makercardpoint;
-        //TakeCard makertake;
-        //Control panmaker;
-        //public int BankerChip = 1000;
-        //public int BankerPoint = 0;
-        //public int TakeCount = 0;
         /// <summary>
         /// 莊家中撲克牌的原始牌面大小
         /// </summary>

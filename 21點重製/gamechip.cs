@@ -66,7 +66,7 @@ namespace _21點重製
             }
             else if (x == y)
             {
-                MessageBox.Show("平手和局");
+                MessageBox.Show("和局!");
                 draw();
                 addclear(); 
             }

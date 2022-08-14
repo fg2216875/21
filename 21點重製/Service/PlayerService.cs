@@ -38,8 +38,6 @@ namespace _21點重製.Service
         {
             ThePlayer.PlayerCardNo.Add(PokerList[0]);
             PokerList.RemoveAt(0);
-            //ThePlayer.PlayerTake = new TakeCard(ThePlayer.panplayer);
-            //CreatePokerPicture(ThePlayer.PlayerCardNo[ThePlayer.PlayerCardNo.Count - 1], ThePlayer.TakeCount, ThePlayer.PlayerPoker);
             CardValue GetCardValue = new CardValue(ThePlayer.PlayerCardNo.Last().Value);
             ThePlayer.PlayerPoker.Add(GetCardValue);
             ThePlayer.PlayerPoint += ThePlayer.PlayerPoker.Last().TrueValue;
@@ -81,10 +79,7 @@ namespace _21點重製.Service
             PokerPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             CardNo PlayerCard = ThePlayer.PlayerCardNo[ThePlayer.PlayerCardNo.Count - 1];
             PokerPictureBox.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\" + PlayerCard.Symbol + PlayerCard.Value + ".png");
-
             ThePlayer.panplayer.Controls.Add(PokerPictureBox);
-            //CardValue GetCardValue = new CardValue(PlayerCard.Value);
-            //ThePlayer.PlayerPoker.Add(GetCardValue);
             ThePlayer.TakeCount++;
         }
     }
