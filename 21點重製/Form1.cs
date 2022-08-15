@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -23,7 +24,6 @@ namespace _21點重製
         List<CardNo> CardDeck = new List<CardNo>();    //建立一組撲克牌
         Player you;                  //宣告一名玩家
         Banker banker;             //宣告一名莊家
-        gamechip playerchip;         //宣告雙方的籌碼
         private void Form1_Load(object sender, EventArgs e)
         {
             GameService _GameService = new GameService();
@@ -187,11 +187,21 @@ namespace _21點重製
             //發牌給玩家
             _PlayerService.AddCard(you, CardDeck);
             //發牌給莊家
-            _PlayerService.AddCard(banker, CardDeck);     
-            picPlayer1.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\"+you.PlayerCardNo[0].Symbol+ you.PlayerCardNo[0].Value + ".png");
-            picPlayer2.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\" + you.PlayerCardNo[1].Symbol + you.PlayerCardNo[1].Value + ".png");
-            picMain1.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\" + banker.PlayerCardNo[0].Symbol+ banker.PlayerCardNo[0].Value + ".png");
-            picMain2.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\撲克牌背面.jpg");      //莊家蓋一張牌                                                           
+            _PlayerService.AddCard(banker, CardDeck);
+            DirectoryInfo dir = new DirectoryInfo(Application.StartupPath);
+            string path = dir.Parent.Parent.FullName.ToString();
+            string fullPath = Path.Combine(path, "Picture", you.PlayerCardNo[0].Symbol + you.PlayerCardNo[0].Value.ToString() + ".png");
+            picPlayer1.Image = new Bitmap(fullPath);
+            fullPath = Path.Combine(path, "Picture", you.PlayerCardNo[1].Symbol + you.PlayerCardNo[1].Value.ToString() + ".png");
+            picPlayer2.Image = new Bitmap(fullPath);
+            fullPath = Path.Combine(path, "Picture", banker.PlayerCardNo[0].Symbol + banker.PlayerCardNo[0].Value.ToString() + ".png");
+            picMain1.Image = new Bitmap(fullPath);
+            fullPath = Path.Combine(path, "Picture", "撲克牌背面.jpg");
+            picMain2.Image = new Bitmap(fullPath);      //莊家蓋一張牌      
+            //picPlayer1.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\"+you.PlayerCardNo[0].Symbol+ you.PlayerCardNo[0].Value + ".png");
+            //picPlayer2.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\" + you.PlayerCardNo[1].Symbol + you.PlayerCardNo[1].Value + ".png");
+            //picMain1.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\" + banker.PlayerCardNo[0].Symbol+ banker.PlayerCardNo[0].Value + ".png");
+            //picMain2.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\撲克牌背面.jpg");      //莊家蓋一張牌                                                           
             lblPlayer.Text = you.PlayerPoint + "";            
             btnAdd.Enabled = true;
             btnStop.Enabled = true;

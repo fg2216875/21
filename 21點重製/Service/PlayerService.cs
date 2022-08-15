@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -78,7 +79,11 @@ namespace _21點重製.Service
             PokerPictureBox.Location = new Point(0 + ThePlayer.TakeCount * 130, 0);
             PokerPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             CardNo PlayerCard = ThePlayer.PlayerCardNo[ThePlayer.PlayerCardNo.Count - 1];
-            PokerPictureBox.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\" + PlayerCard.Symbol + PlayerCard.Value + ".png");
+            DirectoryInfo dir = new DirectoryInfo(Application.StartupPath);
+            string path = dir.Parent.Parent.FullName.ToString();
+            string fullPath = Path.Combine(path, "Picture", PlayerCard.Symbol+PlayerCard.Value.ToString() + ".png");
+            PokerPictureBox.Image = new Bitmap(fullPath);
+            //PokerPictureBox.Image = new Bitmap(path + "\\Picture\\" + PlayerCard.Symbol + PlayerCard.Value + ".png");
             ThePlayer.panplayer.Controls.Add(PokerPictureBox);
             ThePlayer.TakeCount++;
         }
