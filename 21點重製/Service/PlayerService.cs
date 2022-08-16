@@ -83,7 +83,6 @@ namespace _21點重製.Service
             string path = dir.Parent.Parent.FullName.ToString();
             string fullPath = Path.Combine(path, "Picture", PlayerCard.Symbol+PlayerCard.Value.ToString() + ".png");
             PokerPictureBox.Image = new Bitmap(fullPath);
-            //PokerPictureBox.Image = new Bitmap(path + "\\Picture\\" + PlayerCard.Symbol + PlayerCard.Value + ".png");
             ThePlayer.panplayer.Controls.Add(PokerPictureBox);
             ThePlayer.TakeCount++;
         }

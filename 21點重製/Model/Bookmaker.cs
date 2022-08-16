@@ -31,29 +31,6 @@ namespace _21點重製
             PlayerChip = 1000;
             PlayerPoint = 0;
             TakeCount = 0;
-        }
-        //public void MakerAddCard(List<CardNo> poker)    //取得卡牌，並加到 Playercard 手中
-        //{
-        //    for (int i = 0; i < 2; i++)
-        //    {
-        //        Makercard.Add(poker[0]);
-        //        poker.RemoveAt(0);        // 扣除發牌的張數
-        //        makercardpoint = new CardValue(Makercard[i].Value);
-        //        MakerPoker.Add(makercardpoint);
-        //        makerpoint += makercardpoint.TrueValue;
-        //    }
-        //    makercardpoint.checkAce(ref makerpoint, MakerPoker);
-        //}
-        //public void MakerTakeCard(List<CardNo> poker)
-        //{
-        //    Makercard.Add(poker[0]);
-        //    poker.RemoveAt(0);
-        //    makertake = new TakeCard(panmaker);
-        //    makertake.createPic(Makercard[Makercard.Count - 1], takecount, MakerPoker);
-        //    takecount++;
-        //    makerpoint += MakerPoker[takecount + 1].TrueValue;
-        //    makercardpoint.checkAce(ref makerpoint, MakerPoker);
-        //}
-        
+        }    
     }
 }

@@ -33,9 +33,6 @@ namespace _21點重製
 
             you = new Player(panPlayer);          //建立玩家
             banker = new Banker(panMain);       //建立莊家
-            //playerchip = new gamechip(banker.PlayerChip, you.PlayerChip);   //建立雙方的籌碼  
-            //playerchip.showchip += lblMoney;
-            //playerchip.addclear += Clear;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -57,18 +54,19 @@ namespace _21點重製
                 lblMoney(banker.PlayerChip, you.PlayerChip);
                 Clear();
             }
-            //playerchip.check(you.PlayerPoint);
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            GameService _GameService = new GameService();
-            picMain2.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\" + banker.PlayerCardNo[1].Symbol + banker.PlayerCardNo[1].Value + ".png");
-            lblMain.Text = banker.PlayerPoint + "";
+            DirectoryInfo dir = new DirectoryInfo(Application.StartupPath);
+            string path = dir.Parent.Parent.FullName.ToString();
+            string fullPath = Path.Combine(path, "Picture", banker.PlayerCardNo[1].Symbol + banker.PlayerCardNo[1].Value.ToString() + ".png");
+            picMain2.Image = new Bitmap(fullPath);
+
+            lblMain.Text = banker.PlayerPoint.ToString();
             btnAdd.Enabled = false;
             btnStop.Enabled = false;
             timer1.Enabled = true;
-              
         }
 
         public void lblMoney(int BankerChip,int PlayerChip)     //將結束後的籌碼顯示出來
@@ -120,8 +118,7 @@ namespace _21點重製
             }
             else if (banker.PlayerPoint > you.PlayerPoint)          //莊家加牌後要選擇的方法
             {
-                timer1.Enabled = false;
-                //playerchip.compare(banker.PlayerPoint, you.PlayerPoint);     
+                timer1.Enabled = false;   
                 _GameService.LoseMoney(banker, you, numericUpDown1.Value);
                 lblMoney(banker.PlayerChip, you.PlayerChip);
                 MessageBox.Show("莊家獲勝!");
@@ -137,7 +134,6 @@ namespace _21點重製
             {
                 timer1.Enabled = false;
                 string ShowMessage = "";
-                //playerchip.compare(banker.PlayerPoint, you.PlayerPoint);
                 if (banker.PlayerPoint > 21 || banker.PlayerPoint < you.PlayerPoint)
                 {
                     ShowMessage = "玩家獲勝";
@@ -159,7 +155,6 @@ namespace _21點重製
             }
             else
             {
-                //banker.MakerTakeCard(CardDeck);
                 _PlayerService.TakeCard(banker,CardDeck);
                 _PlayerService.CreatePokerPicture(banker);
                 lblMain.Text = banker.PlayerPoint.ToString();
@@ -178,7 +173,7 @@ namespace _21點重製
             PlayerService _PlayerService = new PlayerService();
             int PlayerCount = 2;
             numericUpDown1.Enabled = false;
-            //playerchip.getchip((int)numericUpDown1.Value);       //將玩家輸入的金額傳到gamechip裡
+            //檢查剩餘的撲克牌數量是否有超過一定數量
             if(CardDeck.Count <= PlayerCount * 5)
             {
                 CardDeck = _GameService.ReStart();
@@ -196,13 +191,10 @@ namespace _21點重製
             picPlayer2.Image = new Bitmap(fullPath);
             fullPath = Path.Combine(path, "Picture", banker.PlayerCardNo[0].Symbol + banker.PlayerCardNo[0].Value.ToString() + ".png");
             picMain1.Image = new Bitmap(fullPath);
+            //莊家蓋一張牌     
             fullPath = Path.Combine(path, "Picture", "撲克牌背面.jpg");
-            picMain2.Image = new Bitmap(fullPath);      //莊家蓋一張牌      
-            //picPlayer1.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\"+you.PlayerCardNo[0].Symbol+ you.PlayerCardNo[0].Value + ".png");
-            //picPlayer2.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\" + you.PlayerCardNo[1].Symbol + you.PlayerCardNo[1].Value + ".png");
-            //picMain1.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\" + banker.PlayerCardNo[0].Symbol+ banker.PlayerCardNo[0].Value + ".png");
-            //picMain2.Image = new Bitmap(Application.StartupPath + "\\撲克牌\\撲克牌背面.jpg");      //莊家蓋一張牌                                                           
-            lblPlayer.Text = you.PlayerPoint + "";            
+            picMain2.Image = new Bitmap(fullPath);                                                            
+            lblPlayer.Text = you.PlayerPoint.ToString();            
             btnAdd.Enabled = true;
             btnStop.Enabled = true;
             btnStart.Enabled = false;       

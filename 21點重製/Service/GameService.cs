@@ -49,72 +49,15 @@ namespace _21點重製.Service
             return Cardnumber;
         }
 
-        public int CheckPokerValue(int PokerValue)
-        {
-            int TrueValue = 0;
-            //遇到J,Q,K,A等撲克牌時，依規則將數值做調整
-            if (PokerValue >= 11)
-            {
-                TrueValue = 10;
-            }
-            else if (PokerValue == 1)
-            {
-                TrueValue = 11;
-            }
-            else
-            {
-                TrueValue = PokerValue;
-            }
-            return TrueValue;
-        }
-
-        /// <summary>
-        /// 比較雙方的點數大小
-        /// </summary>
-        /// <param name="BankerPoint"></param>
-        /// <param name="PlayerPoint"></param>
-        /// <returns></returns>
-        //public string ComparePoint(int BankerPoint, int PlayerPoint)
-        //{
-        //    string ShowMessage = "";
-        //    if (BankerPoint > 21)
-        //    {
-        //        ShowMessage = "玩家獲勝";
-        //        WinMoney();
-        //        addclear();
-        //    }
-        //    else if (BankerPoint > PlayerPoint)
-        //    {
-        //        ShowMessage = "莊家獲勝!";
-        //        LoseMoney();
-        //        addclear();
-        //    }
-        //    else if (BankerPoint == PlayerPoint)
-        //    {
-        //        ShowMessage = "平手和局";
-        //        draw();
-        //        addclear();
-        //    }
-        //    return ShowMessage;
-        //}
-
         public void LoseMoney(Banker BankerInfo, Player PlayerInfo, decimal PlayerBetChip)
         {
             BankerInfo.PlayerChip += (int)PlayerBetChip;
             PlayerInfo.PlayerChip -= (int)PlayerBetChip;
-            //BankerInitailChip += (int)PlayerBetChip;
-            //PlayerInitailChip -= (int)PlayerBetChip;
-            //int[] MoneyArray = new int[] { BankerInitailChip, PlayerInitailChip };
-            //return MoneyArray;
         }
         public void WinMoney(Banker BankerInfo, Player PlayerInfo, decimal PlayerBetChip)
         {
             BankerInfo.PlayerChip -= (int)PlayerBetChip;
             PlayerInfo.PlayerChip += (int)PlayerBetChip;
-            //BankerInitailChip -= (int)PlayerBetChip;
-            //PlayerInitailChip += (int)PlayerBetChip;
-            //int[] MoneyArray = new int[] { BankerInitailChip, PlayerInitailChip };
-            //return MoneyArray;
         }
     }
 }
